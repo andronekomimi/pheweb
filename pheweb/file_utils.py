@@ -344,9 +344,10 @@ class _vfw:
 
 def write_heterogenous_variantfile(filepath, assocs):
     '''inject all necessary keys into the first association so that the writer will be made correctly'''
-    assocs[0] = {field:assocs[0].get(field,'') for field in set(itertools.chain.from_iterable(assocs))}
-    with VariantFileWriter(filepath, allow_extra_fields=True) as vfw:
-        vfw.write_all(assocs)
+    if assocs:
+        assocs[0] = {field:assocs[0].get(field,'') for field in set(itertools.chain.from_iterable(assocs))}
+        with VariantFileWriter(filepath, allow_extra_fields=True) as vfw:
+            vfw.write_all(assocs)
 
 def convert_VariantFile_to_IndexedVariantFile(vf_path, ivf_path):
     make_basedir(ivf_path)

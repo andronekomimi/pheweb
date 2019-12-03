@@ -185,8 +185,14 @@ def get_confidence_intervals(num_variants, confidence=0.95):
 
     for variant_count in variant_counts:
         rv = scipy.stats.beta(variant_count, num_variants-variant_count)
-        yield {
-            'x': round(-math.log10((variant_count-0.5)/num_variants),2),
-            'y_min': round(-math.log10(rv.ppf(1-one_sided_doubt)),2),
-            'y_max': round(-math.log10(rv.ppf(one_sided_doubt)),2),
-        }
+        # this test avoid a Math error in x calculation
+        if variant_count > 0.5:
+            yield {
+                'x': round(-math.log10((variant_count-0.5)/num_variants),2),
+                'y_min': round(-math.log10(rv.ppf(1-one_sided_doubt)),2),
+                'y_max': round(-math.log10(rv.ppf(one_sided_doubt)),2),
+            }
+
+
+
+
