@@ -21,10 +21,14 @@ def get_phenotypes_including_top_variants():
             'rsids': top_variant['rsids'],
             'num_peaks': num_peaks,
         }
-        if 'category' in pheno: ret['category'] = pheno['category']
-        if 'phenostring' in pheno: ret['phenostring'] = pheno['phenostring']
-        if 'population' in pheno: ret['population'] = pheno['population']
-        if 'sex' in pheno: ret['sex'] = pheno['sex']
+
+        # Keeping track of additional columns
+        required_cols = {"assoc_files", "phenocode"}
+        additional_cols = pheno.keys() - required_cols
+
+        for col in additional_cols:
+            ret[col] = pheno[col]
+
         if isinstance(ret['nearest_genes'], list): ret['nearest_genes'] = ','.join(ret['nearest_genes'])
         yield ret
 
