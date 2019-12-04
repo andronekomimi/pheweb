@@ -23,6 +23,8 @@ def get_phenotypes_including_top_variants():
         }
         if 'category' in pheno: ret['category'] = pheno['category']
         if 'phenostring' in pheno: ret['phenostring'] = pheno['phenostring']
+        if 'population' in pheno: ret['population'] = pheno['population']
+        if 'sex' in pheno: ret['sex'] = pheno['sex']
         if isinstance(ret['nearest_genes'], list): ret['nearest_genes'] = ','.join(ret['nearest_genes'])
         yield ret
 

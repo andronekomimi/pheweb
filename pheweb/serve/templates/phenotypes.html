@@ -48,6 +48,8 @@
         <tr>
           <th>Category</th>
           <th>Phenotype</th>
+	  <th>Population</th>
+	  <th>Sex</th>
           <th>Loci &lt; 10<sup>-6</sup></th>
           <th>Top variant</th>
           <th>Top p-value</th>
@@ -66,6 +68,8 @@
     <td><a style="color:black" href="{{ url_for('.pheno_page', phenocode='').rstrip('/') }}/<%= h.phenocode %>">
         <%= h.phenostring || h.phenocode %>
     </a></td>
+    <td><%= h.population %></td>
+    <td><%= h.sex %></td>
     <td><%= h.num_peaks %></td>
     <td><a style="color:black" href="{{ url_for('.variant_page', query='').rstrip('/') }}/<%= h.chrom %>-<%= h.pos %>-<%= h.ref %>-<%= h.alt %>">
         <%= h.chrom %>:<%= h.pos.toLocaleString() %> <%= h.ref %> / <%= h.alt %>

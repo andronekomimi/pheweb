@@ -68,6 +68,13 @@
         {% if pheno.category %}
           <p>Category: <b>{{ pheno.category}}</b></p>
         {% endif %}
+	{% if pheno.population %}
+          <p>Population: <b>{{ pheno.population}}</b></p>
+        {% endif %}
+	{% if pheno.sex %}
+          <p>Sex: <b>{{ pheno.sex}}</b></p>
+        {% endif %}
+
     </div>
 </div>
 <br>
