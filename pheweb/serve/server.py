@@ -161,6 +161,7 @@ def pheno_page(phenocode):
                            pheno_correlations_pvalue_threshold=conf.pheno_correlations_pvalue_threshold,
                            phenocode=phenocode,
                            pheno=pheno,
+                           extra_cols=get_extra_cols(),
                            tooltip_underscoretemplate=conf.parse.tooltip_underscoretemplate,
     )
 
@@ -256,6 +257,7 @@ def gene_phenocode_page(phenocode, genename):
                                pheno=pheno,
                                significant_phenos=phenos_in_gene,
                                gene_symbol=genename,
+                               extra_cols=get_extra_cols(),
                                region='{}:{}-{}'.format(chrom, start, end),
                                tooltip_lztemplate=conf.parse.tooltip_lztemplate,
         )

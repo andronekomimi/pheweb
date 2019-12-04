@@ -128,20 +128,9 @@
 </div>
 <div class="row">
     <div class="pheno-info col-xs-12 col-sm-8">
-        {% if 'num_cases' in pheno %}
-          <p><b>{{ pheno.num_cases }}</b> cases, <b>{{ pheno.num_controls }}</b> controls</p>
-        {% elif 'num_samples' in pheno %}
-          <p><b>{{ pheno.num_samples | int }}</b> samples</p>
-        {% endif %}
-        {% if pheno.category %}
-          <p>Category: <b>{{ pheno.category }}</b></p>
-        {% endif %}
-        {% if pheno.population %}
-          <p>Population: <b>{{ pheno.population }}</b></p>
-        {% endif %}
-        {% if pheno.sex %}
-          <p>Sex: <b>{{ pheno.sex }}</b></p>
-        {% endif %}
+	{%- for col, sanitized_col in extra_cols %}
+	<p><b>{{ sanitized_col }}:</b> {{pheno[col]}} </p>
+    	{%- endfor %}
     </div>
     <div class="pheno-info col-xs-12 col-sm-4">
       {% if config.DOWNLOAD_PHENO_SUMSTATS_BUTTON %}
@@ -151,6 +140,7 @@
       {% endif %}
     </div>
 </div>
+<br>
 <div class="row">
   <div class="col-xs-12">
     <ul>
