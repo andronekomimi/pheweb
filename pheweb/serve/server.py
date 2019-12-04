@@ -1,5 +1,5 @@
 
-from ..utils import get_phenolist, get_gene_tuples, pad_gene, PheWebError
+from ..utils import get_phenolist, get_gene_tuples, pad_gene, PheWebError, get_extra_cols
 from ..conf_utils import conf
 from ..file_utils import common_filepaths
 from .server_utils import get_variant, get_random_page, get_pheno_region
@@ -128,7 +128,8 @@ def download_top_hits():
 @bp.route('/phenotypes')
 @check_auth
 def phenotypes_page():
-    return render_template('phenotypes.html')
+    return render_template('phenotypes.html', extra_cols=get_extra_cols())
+
 @bp.route('/api/phenotypes.json')
 @check_auth
 def api_phenotypes():

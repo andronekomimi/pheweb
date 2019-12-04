@@ -47,6 +47,19 @@ def get_phenolist(filepath=None):
     return phenolist
 
 
+def get_extra_cols():
+    # All phenotypes should have the same columns...
+    cols = get_phenolist()[0].keys()
+    extra_cols = cols - {"assoc_files", "phenocode", "phenostring"}
+
+    # Sanitizing the column names
+    sanitized_extra_cols = [
+        (col, (col[0].upper() + col[1:]).replace("_", " "))
+        for col in sorted(extra_cols)
+    ]
+    return sanitized_extra_cols
+
+
 def pad_gene(start, end):
     '''
     Calculates a range to show in LocusZoom region views for a gene.
