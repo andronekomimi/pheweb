@@ -309,11 +309,30 @@ def _ensure_conf():
             'nullable': True,
             'display': 'R2',
         }),
+        ('adj_r2', {
+            'type': float,
+            'proportion_sigfigs': 2,
+            'nullable': True,
+            'display': 'ADJ_R2',
+        }),
         ('tstat', {
             'type': float,
             'sigfigs': 2,
             'nullable': True,
             'display': 'Tstat',
+        }),
+        ('n_events', {
+            'type': int,
+            'nullable': True,
+            'display': '#events',
+            'tooltip_underscoretemplate': False,
+            'tooltip_lztemplate': False,
+        }),
+        ('log', {
+            'type': str,
+            'display': 'LOG',
+            'tooltip_underscoretemplate': False,
+            'tooltip_lztemplate': False,
         }),
     ])
 
