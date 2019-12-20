@@ -325,14 +325,14 @@ def _ensure_conf():
             'type': int,
             'nullable': True,
             'display': '#events',
-            'tooltip_underscoretemplate': False,
-            'tooltip_lztemplate': False,
+            'tooltip_underscoretemplate': '# events: <%= d.n_events %><br>',
+            'tooltip_lztemplate': '# events <strong>{{n_events}}</strong><br>',
         }),
         ('log', {
             'type': str,
             'display': 'LOG',
-            'tooltip_underscoretemplate': False,
-            'tooltip_lztemplate': False,
+            'tooltip_underscoretemplate': 'Transformation: <%= d.log %><br>',
+            'tooltip_lztemplate': 'Transformation: <strong>{{log}}</strong><br>',
         }),
     ])
 
