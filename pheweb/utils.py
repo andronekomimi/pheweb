@@ -14,7 +14,7 @@ def round_sig(x, digits):
     if x == 0:
         return 0
     elif abs(x) == math.inf or math.isnan(x):
-        raise ValueError("Cannot round infinity or NaN")
+        return x
     else:
         log = math.log10(abs(x))
         digits_above_zero = int(math.floor(log))
