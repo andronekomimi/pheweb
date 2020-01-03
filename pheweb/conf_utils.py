@@ -311,7 +311,7 @@ def _ensure_conf():
         }),
         ('adj_r2', {
             'type': float,
-            'proportion_sigfigs': 2,
+            'sigfigs': 2,
             'nullable': True,
             'display': 'ADJ_R2',
         }),
