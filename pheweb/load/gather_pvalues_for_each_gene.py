@@ -62,7 +62,9 @@ def get_gene_info(gene, matrix_reader):
     #  - Look at the p-values of the 4th to 10th strongest phenotypes to decide how many of them to show.
     biggest_idx_to_include = 2
     for idx in range(biggest_idx_to_include, len(phenos_in_gene)):
-        if phenos_in_gene[idx]['pval'] < 0.05:
+        if phenos_in_gene[idx]['pval'] < 5e-8:
+            biggest_idx_to_include = idx
+        elif idx < 10 and phenos_in_gene[idx]['pval'] < 10 ** (-4 - idx//2): # formula is arbitrary
             biggest_idx_to_include = idx
         else:
             break
