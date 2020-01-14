@@ -7,6 +7,7 @@ from .autocomplete import Autocompleter
 from .auth import GoogleSignIn
 from ..version import version as pheweb_version
 from ..import weetabix
+from ..file_utils import MatrixReader
 
 from flask import Flask, jsonify, render_template, request, redirect, abort, flash, send_from_directory, send_file, session, url_for, Blueprint
 from flask_compress import Compress
@@ -272,6 +273,59 @@ def gene_page(genename):
     if not phenos_in_gene:
         die("Sorry, that gene doesn't appear to have any associations in any phenotype.")
     return gene_phenocode_page(phenos_in_gene[0]['phenocode'], genename)
+
+
+@bp.route('/gene/<genename>/all')
+@check_auth
+def gene_page_all_markers(genename):
+    try:
+        gene_region_mapping = get_gene_region_mapping()
+        chrom, start, end = gene_region_mapping[genename]
+
+        include_string = request.args.get('include', '')
+        if include_string:
+            include_chrom, include_pos = include_string.split('-')
+            include_pos = int(include_pos)
+            assert include_chrom == chrom
+            if include_pos < start:
+                start = include_pos - (end - start) * 0.01
+            elif include_pos > end:
+                end = include_pos + (end - start) * 0.01
+        start, end = pad_gene(start, end)
+
+        all_variants = []
+        with MatrixReader().context() as matrix_reader:
+            data = matrix_reader.get_region(chrom, start, end)
+
+            for v in data:
+                variant_info = {
+                    "variant": v["rsids"].replace(",", ", "),
+                    "position": v["pos"],
+                    "reference": v["ref"],
+                    "alternative": v["alt"],
+                }
+
+                if v["rsids"] == "":
+                    variant_info["variant"] = "{}:{}/{}".format(v["chrom"], v["pos"], v["alt"])
+
+                for pheno_code, pheno_value in v["phenos"].items():
+                    if pheno_value["pval"] < 0.05:
+                        variant_info["phenocode"] = pheno_code
+                        variant_info.update(pheno_value)
+
+                        all_variants.append(variant_info)
+
+        all_variants.sort(key=lambda d: d["pval"], reverse=True)
+        return render_template('gene_all.html',
+                               gene_symbol=genename,
+                               data=all_variants,
+                               region='{}:{}-{}'.format(chrom, start, end),
+                               tooltip_lztemplate=conf.parse.tooltip_lztemplate,
+        )
+
+    except Exception as exc:
+        die("Sorry, your region request for gene {!r} didn't work".format(genename), exception=exc)
+        raise
 
 
 
