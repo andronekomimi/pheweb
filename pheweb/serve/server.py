@@ -291,7 +291,6 @@ def gene_page_all_markers(genename):
                 start = include_pos - (end - start) * 0.01
             elif include_pos > end:
                 end = include_pos + (end - start) * 0.01
-        start, end = pad_gene(start, end)
 
         all_variants = []
         with MatrixReader().context() as matrix_reader:
