@@ -315,7 +315,7 @@ def gene_page_all_markers(genename):
 
                         all_variants.append(variant_info)
 
-        all_variants.sort(key=lambda d: d["pval"], reverse=True)
+        all_variants.sort(key=lambda d: d["pval"], reverse=False)
         return render_template('gene_all.html',
                                gene_symbol=genename,
                                data=all_variants,
