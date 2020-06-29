@@ -334,6 +334,13 @@ def _ensure_conf():
             'tooltip_underscoretemplate': 'Transformation: <%= d.log %><br>',
             'tooltip_lztemplate': 'Transformation: <strong>{{log}}</strong><br>',
         }),
+	('hr', {
+            'type': float,
+            'nullable': True,
+            'range': [0, None],
+            'sigfigs': 2,
+            'display': 'Hazard Ratio',
+        }),
     ])
 
     default_per_pheno_fields = OrderedDict([
