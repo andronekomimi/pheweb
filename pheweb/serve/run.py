@@ -112,6 +112,11 @@ def run(argv):
     parser.add_argument('--guess-address', action='store_true', help='guess the IP address')
     parser.add_argument('--open', action='store_true', help='try to open a web browser')
     parser.add_argument('--urlprefix', default='', help='sub-path at which to host this server')
+    parser.add_argument('--website-title', default=None, help='The title of the website')
+    parser.add_argument('--navbar-brand', default=None, help='The brand on the navigation bar')
+    parser.add_argument('--index-h1', default=None, help='The H1 title in the main index page')
+    parser.add_argument('--index-below-h1', default=None, help='The text going below the H1 title in the main index page')
+    parser.add_argument('--index-below-query', default=None, help='The text going below the query in the main index page')
     args = parser.parse_args(argv)
 
     from ..conf_utils import conf
@@ -130,6 +135,18 @@ def run(argv):
     import gevent.monkey
     gevent.monkey.patch_all() # this must happen before `import requests`.
     from .server import app
+
+    # Trying something here
+    @app.context_processor
+    def inject_titles():
+        return {
+            'website_title': args.website_title,
+            'navbar_brand': args.navbar_brand,
+            'index_h1': args.index_h1,
+            'index_below_h1': args.index_below_h1,
+            'index_below_query': args.index_below_query,
+        }
+
     if gunicorn_is_broken():
         run_flask_dev_server(app, args)
     else:

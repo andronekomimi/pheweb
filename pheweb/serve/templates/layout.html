@@ -55,7 +55,7 @@
                 <span class="icon-bar"></span>
             </button>
             {% block navbar_left %}
-            <a class="navbar-brand" href="{{ url_for('.homepage') }}" style="color: #333; font-weight: bold; float: left; font-size: 15px;">PheWeb</a>
+            <a class="navbar-brand" href="{{ url_for('.homepage') }}" style="color: #333; font-weight: bold; float: left; font-size: 15px;">{{ navbar_brand if navbar_brand else 'PheWeb' }}</a>
             <div class="navbar-left" id="navbar_form_container">
                 <form action="{{ url_for('.go') }}" class="navbar-form" role="search">
                     <div class="form-group" id="navbar-awesomebar">
