@@ -131,6 +131,7 @@ def _ensure_conf():
     conf.set_default_value('manhattan_peak_sprawl_dist', int(200e3))
     conf.set_default_value('manhattan_peak_variant_counting_pval_threshold', 5e-8)
     conf.set_default_value('top_hits_pval_cutoff', 0.05) #
+    conf.set_default_value('prevent_downloads', False)
 
     # Whether to show a table of correlated phenotypes in the app
     conf.set_default_value('show_correlations', False)

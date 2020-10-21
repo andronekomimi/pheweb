@@ -63,11 +63,13 @@
   </div>
 </div>
 
+{% if config.DOWNLOAD_TOP_HITS_BUTTON %}
 <div class="row">
   <div class="col-xs-12">
     <p><a class="btn btn-primary" href="{{ url_for('.download_top_hits') }}">Download All</a></p>
   </div>
 </div>
+{% endif %}
 
 <script type="text/template" id="streamtable-template">
   <tr>
